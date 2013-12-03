@@ -8,20 +8,20 @@ Usage
 
 To use the default settings:
 
-`$( document ).ready( function() {
-    $().flurry();
-});`
+    $( document ).ready( function() {
+        $().flurry();
+    });
 
 To specify your own settings:
 
-`$( document ).ready( function() {
-    $().flurry({
-        height: 200,
-        speed: 2400,
-        wind: 100,
-        variance: 80
+    $( document ).ready( function() {
+        $().flurry({
+            height: 200,
+            speed: 2400,
+            wind: 100,
+            variance: 80
+        });
     });
-});`
 
 Options
 -------
