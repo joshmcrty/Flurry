@@ -1,0 +1,34 @@
+{
+    "name": "flurry",
+    "title": "jQuery Flurry",
+    "description": "Flurry is an easy-to-use animated snow plugin for jQuery inspired by jSnow.",
+    "keywords": [
+        "snow",
+        "animation"
+    ],
+    "version": "0.1.0",
+    "author": {
+        "name": "Josh McCarty",
+        "url": "http://joshmccarty.com"
+    },
+    "maintainers": [
+        {
+            "name": "Josh McCarty",
+            "email": "josh@joshmccarty.com",
+            "url": "http://joshmccarty.com"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "GPLv2",
+            "url": "https://github.com/joshmcrty/Flurry/blob/master/LICENSE"
+        }
+    ],
+    "bugs": "https://github.com/joshmcrty/Flurry/issues",
+    "homepage": "https://github.com/joshmcrty/Flurry",
+    "docs": "https://github.com/joshmcrty/Flurry",
+    "download": "https://github.com/joshmcrty/Flurry",
+    "dependencies": {
+        "jquery": ">=1.0"
+    }
+}
