@@ -33,7 +33,7 @@
       });
     }
     
-    // On window resize, recalculate the width used to generate flakes within
+    // On window resize, recalculate the width used to generate flakes
     var windowWidth = $( window ).width();
     $( window ).resize( function() {
       windowWidth = $( window ).width();
@@ -53,8 +53,9 @@
       // Create the flake, set the CSS for it, and animate it
       var flake = '<span>' + settings.character + '</span>';
       $( flake ).css({
-        "color": "rgba(255, 255, 255, " + settings.transparency + ")",
+        "color": "#FFF",
         "font-size": randomNumberInRange( settings.small, settings.large ) + "px",
+        "opacity": settings.transparency,
         "position": "absolute",
         "top": "-" + settings.large + "px",
         "left": left + "px",

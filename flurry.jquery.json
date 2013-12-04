@@ -6,7 +6,7 @@
         "snow",
         "animation"
     ],
-    "version": "0.1.0",
+    "version": "0.2.0",
     "author": {
         "name": "Josh McCarty",
         "email": "josh@joshmccarty.com",
@@ -17,6 +17,11 @@
             "name": "Josh McCarty",
             "email": "josh@joshmccarty.com",
             "url": "http://joshmccarty.com"
+        },
+        {
+            "name": "Miguel A. Chateloin",
+            "email": "mchateloin@gmail.com",
+            "url": "http://chateloin.com"
         }
     ],
     "licenses": [
