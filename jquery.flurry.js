@@ -17,13 +17,13 @@
         height: 150,
         density: 100,
         speed: 3000,
-        smallest: 12,
-        largest: 20,
+        small: 12,
+        large: 20,
         wind: 40,
         variance: 20,
         preventScroll: true,
-        character: "&bull;", //&#10052; could also be used
-        transparency: 1 //The alpha in the rgba of the character's color
+        character: "&bull;",
+        transparency: 1
     }, options );
     
     // Prevent browser horizontal scrolling
@@ -54,9 +54,9 @@
       var flake = '<span>' + settings.character + '</span>';
       $( flake ).css({
         "color": "rgba(255, 255, 255, " + settings.transparency + ")",
-        "font-size": randomNumberInRange( settings.smallest, settings.largest ) + "px",
+        "font-size": randomNumberInRange( settings.small, settings.large ) + "px",
         "position": "absolute",
-        "top": "-" + settings.largest + "px",
+        "top": "-" + settings.large + "px",
         "left": left + "px",
         "z-index": "999"
       }).appendTo( 'body' ).animate({

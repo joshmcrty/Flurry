@@ -41,3 +41,7 @@ Options
 `variance` controls how much each flake will randomly drift in pixels using the `wind` as a base
 
 `preventScrolls` determines whether `overflow-x: auto` is applied to the `html` element to prevent horizontal scrolling
+
+`character` determines the character or html entity to be replicated as a snowflake.
+
+`transparency` determines the rgba alpha value of color of the character being used.
