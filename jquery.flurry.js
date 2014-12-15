@@ -23,7 +23,8 @@
         variance: 20,
         preventScroll: true,
         character: "&bull;",
-        transparency: 1
+        transparency: 1,
+        container: 'body'
     }, options );
     
     // Prevent browser horizontal scrolling
@@ -59,7 +60,7 @@
         "top": "-" + settings.large + "px",
         "left": left + "px",
         "z-index": "999"
-      }).appendTo( 'body' ).animate({
+      }).appendTo( settings.container ).animate({
         "top": settings.height + "px",
         "left": ( left + randomNumberInRange( settings.wind - settings.variance, settings.wind + settings.variance ) ) + "px",
         "opacity": 0

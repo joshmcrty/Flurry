@@ -45,3 +45,5 @@ Options
 `character` determines the character or html entity to be replicated as a snowflake
 
 `transparency` determines the alpha value of color of the character
+
+`container` determines the element to which the flakes will be appended to
