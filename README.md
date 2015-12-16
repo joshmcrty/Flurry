@@ -44,6 +44,8 @@ Options
 
 `useRelative` determines whether `position: relative` is applied to the selected element so flakes are generated within it (useful for generating flakes for a specific part of the page). Default is `true`.
 
+`useTransitions` determines whether CSS transitions are used to animate the flakes instead of jQuery `animate()`. Checks for browser support and falls back to `.animate()` if necessary. Default is `true`.
+
 `character` determines the character or html entity to be replicated as a snowflake. Default is `&bull;`.
 
 `transparency` determines the alpha value of color of the character. Default is `1`.
