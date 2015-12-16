@@ -4,15 +4,20 @@
             body{
                 background: darkblue;
             }
+            main {
+              margin: 0 auto;
+              max-width: 80%;
+            }
+            .flurry-container {
+              min-height: 600px;
+            }
         </style>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="jquery.flurry.js"></script>
-    </head>
-    <body>
         <script>
             $( document ).ready( function() {
-                $().flurry({
-                    height: 1000,
+                $('body').flurry({
+                    height: 500,
                     speed: 3000,
                     wind: 400,
                     variance: 100,
@@ -23,5 +28,13 @@
                 });
             });
         </script>
+    </head>
+    <body>
+        <main>
+          <h1>Flurry Example</h1>
+          <div class="flurry-container">
+            <p>Let it snow!</p>
+          </div>
+        </main>
     </body>
 </html>

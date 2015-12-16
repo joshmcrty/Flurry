@@ -9,7 +9,7 @@ Usage
 To use the default settings:
 
     $( document ).ready( function() {
-        $().flurry();
+        $('body').flurry();
     });
 
 To specify your own settings:
@@ -26,24 +26,24 @@ To specify your own settings:
 Options
 -------
 
-`height` controls how far down the page the flakes will fall in pixels
+`height` controls how far down the page the flakes will fall in pixels. Default is `150` or the height of the container, whichever is smaller.
 
-`density` controls how frequently new flakes are generated in milliseconds
+`density` controls how frequently new flakes are generated in milliseconds; lower is more dense. Default is `100`.
 
-`speed` controls how fast the flakes fall
+`speed` controls how fast the flakes fall; lower is faster. Default is `3000`.
 
-`small` determines the font size of the smallest flakes in pixels
+`small` determines the font size of the smallest flakes in pixels. Default is `12`.
 
-`large` determines the font size of the largest flakes in pixels
+`large` determines the font size of the largest flakes in pixels. Default is `20`.
 
-`wind` controls how far to the left the flakes will drift in pixels
+`wind` controls how far to the left the flakes will drift in pixels. Default is `40`. Use a negative number to make flakes drift to the right.
 
-`variance` controls how much each flake will randomly drift in pixels using the `wind` as a base
+`variance` controls how much each flake will randomly drift in pixels using the `wind` as a base.
 
-`preventScrolls` determines whether `overflow-x: auto` is applied to the `html` element to prevent horizontal scrolling
+`preventScroll` determines whether `overflow: auto` is applied to the selected element to prevent horizontal scrolling. Default is `true`.
 
-`character` determines the character or html entity to be replicated as a snowflake
+`useRelative` determines whether `position: relative` is applied to the selected element so flakes are generated within it (useful for generating flakes for a specific part of the page). Default is `true`.
 
-`transparency` determines the alpha value of color of the character
+`character` determines the character or html entity to be replicated as a snowflake. Default is `&bull;`.
 
-`container` determines the element to which the flakes will be appended to
+`transparency` determines the alpha value of color of the character. Default is `1`.
