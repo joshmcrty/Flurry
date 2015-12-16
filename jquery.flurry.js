@@ -86,6 +86,7 @@
       var $flake = $('<span></span>');
       $flake.html(settings.character).css({
         "color": "rgba(255, 255, 255, " + settings.transparency + ")",
+        "pointer-events": "none",
         "font-size": randomNumberInRange( settings.small, settings.large ) + "px",
         "position": "absolute",
         "top": "-" + settings.large + "px",
