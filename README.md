@@ -40,7 +40,7 @@ Options
 
 `variance` controls how much each flake will randomly drift in pixels using the `wind` as a base.
 
-`preventScroll` determines whether `overflow: auto` is applied to the selected element to prevent horizontal scrolling. Default is `true`.
+`preventScroll` determines whether `overflow: hidden` is applied to the selected element to prevent horizontal scrolling. Default is `true`.
 
 `useRelative` determines whether `position: relative` is applied to the selected element so flakes are generated within it (useful for generating flakes for a specific part of the page). Default is `true`.
 
