@@ -1,51 +1,71 @@
-Flurry
-======
+# Flurry
 
-Flurry is an easy-to-use animated snow plugin for jQuery inspired by jSnow. It uses bullet characters as snowflakes, with no dependencies on images or CSS files.
+Flurry is an easy-to-use animated snow plugin for jQuery. It takes advantage of CSS transforms and transitions to provide smooth animation for modern browsers. It uses unicode characters as snowflakes, with no dependencies on images or CSS files.
 
-Usage
------
+## Usage
 
 To use the default settings:
 
-    $( document ).ready( function() {
-        $('body').flurry();
-    });
+``` javascript
+$( document ).ready( function() {
+    $( 'body' ).flurry();
+});
+```
 
 To specify your own settings:
 
-    $( document ).ready( function() {
-        $().flurry({
-            height: 200,
-            speed: 2400,
-            wind: 100,
-            variance: 80
-        });
+``` javascript
+$( document ).ready( function() {
+    $( 'body' ).flurry({
+        character: "❄",
+        color: "white",
+        height: 400,
+        frequency: 80,
+        speed: 4000,
+        small: 8,
+        large: 48,
+        wind: 60,
+        windVariance: 20,
+        rotation: 0,
+        rotationVariance: 90
     });
+});
+```
 
-Options
--------
+## Options
 
-`height` controls how far down the page the flakes will fall in pixels. Default is `150` or the height of the container, whichever is smaller.
+`character` (string) determines the character or html entity to be replicated as a snowflake. Default is `"❄"`. If you set this to a string of several unicode characters Flurry will randomize which flakes use each character (e.g. `"❄❅❆"`).
 
-`density` controls how frequently new flakes are generated in milliseconds; lower is more dense. Default is `100`.
+`color` (string) determines the color of the snowflake. Default is `"white"`. You may use any valid [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
 
-`speed` controls how fast the flakes fall; lower is faster. Default is `3000`.
+`height` (number) controls how far down the page the flakes will fall in pixels. Default is `200` or the height of the `container`, whichever is smaller.
 
-`small` determines the font size of the smallest flakes in pixels. Default is `12`.
+`frequency` (number) controls how frequently new flakes are generated in milliseconds; lower creates more flakes at a time. Default is `100`.
 
-`large` determines the font size of the largest flakes in pixels. Default is `20`.
+`speed` (number) controls how long it takes each flake to fall in milliseconds; lower is faster. Default is `3000`.
 
-`wind` controls how far to the left the flakes will drift in pixels. Default is `40`. Use a negative number to make flakes drift to the right.
+`small` (number) determines the font size of the smallest flakes in pixels. Default is `8`.
 
-`variance` controls how much each flake will randomly drift in pixels using the `wind` as a base.
+`large` (number) determines the font size of the largest flakes in pixels. Default is `28`.
 
-`preventScroll` determines whether `overflow: hidden` is applied to the selected element to prevent horizontal scrolling. Default is `true`.
+`wind` (number) controls how far to the left each flake will drift in pixels. Default is `40`. Use a negative number to make flakes drift to the right.
 
-`useRelative` determines whether `position: relative` is applied to the selected element so flakes are generated within it (useful for generating flakes for a specific part of the page). Default is `true`.
+`windVariance` (number) controls how much each flake will drift in pixels using the `wind` as a base; lower creates less random drift. Default is `20`.
 
-`useTransitions` determines whether CSS transitions are used to animate the flakes instead of jQuery `animate()`. Checks for browser support and falls back to `.animate()` if necessary. Default is `true`.
+`rotation` (number) controls how much each flake will rotate in degrees while it falls; lower is less rotation. Default is `90`.
 
-`character` determines the character or html entity to be replicated as a snowflake. Default is `&bull;`.
+`rotationVariance` (number) controls how much each flake's `rotation` will be randomized by in degrees; lower creates less random rotation. Default is `180`.
 
-`transparency` determines the alpha value of color of the character. Default is `1`.
+`startOpacity` (number) controls how much opacity the snowflakes have when they start to fall. Default is `1` which is fully opaque. You may use any valid [CSS opacity value](https://developer.mozilla.org/en-US/docs/Web/CSS/opacity).
+
+`endOpacity` (number) controls how much opacity the snowflakes have when they finish falling and are removed from the DOM. Default is `0` which is fully transparent. You may use any valid [CSS opacity value](https://developer.mozilla.org/en-US/docs/Web/CSS/opacity).
+
+`opacityEasing` (string) controls the easing function used to transition the flakes from their `startOpacity` to their `endOpacity`. Default is `"cubic-bezier(1,.3,.6,.74)"`. You may use any valid [CSS transition-timing-function value](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function).
+
+`overflow` (string) sets the `overflow` CSS property for the selected element (e.g. the `body` element in the examples above). Default is `hidden`.
+
+`useRelative` (boolean) determines whether `position: relative` is applied to the selected element so flakes are generated within it (useful for generating flakes for only a specific part of the page). Default is `true` for all elements except the `body` element which is `false`.
+
+`zIndex` (number) sets the `z-index` CSS property for the snowflakes. Default is `9999`.
+
+**Note:** Many of the options available are randomized slightly for each flake to make the overall effect appear more natural.
