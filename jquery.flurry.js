@@ -8,7 +8,7 @@
  * (see http://jonathannicol.com/blog/2012/05/06/a-jquery-plugin-boilerplate/)
  *
  * @link      https://github.com/joshmcrty/Flurry
- * @version   1.0
+ * @version   1.0.1
  * @author    Josh McCarty <josh@joshmccarty.com>
  * @copyright 2016 Josh McCarty
  * @license   https://github.com/joshmcrty/Flurry/blob/master/LICENSE GPLv2
@@ -237,7 +237,7 @@
 
       // Set element position to relative if currently static
       if (options.useRelative === true && $el.css('position') === 'static') {
-        $this.css({
+        $$el.css({
           'position': 'relative'
         });
       }
