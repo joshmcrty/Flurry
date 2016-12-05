@@ -1,6 +1,8 @@
 # Flurry
 
-Flurry is an easy-to-use animated snow plugin for jQuery. It takes advantage of CSS transforms and transitions to provide smooth animation for modern browsers. It uses unicode characters as snowflakes, with no dependencies on images or CSS files.
+Flurry is an easy-to-use animated snow plugin for jQuery. It takes advantage of CSS transforms, CSS transitions and requestAnimationFrame to provide smooth animation for modern browsers. It uses unicode characters as snowflakes, with no dependencies on images or CSS files. Polyfills are automatically provided for requestAnimationFrame and CSS transitions (falling back to setInterval and jQuery's .animate() feature respectively). Each flake is added to the DOM and then removed when it is finished animating, so please keep in mind the performance implications if you have too many flakes on the screen at once.
+
+Tested in Chrome 54, Firefox 49, IE 11, and Edge 38.
 
 ## Usage
 
@@ -30,6 +32,12 @@ $( document ).ready( function() {
         rotationVariance: 90
     });
 });
+```
+
+To destroy an instance after it's been created:
+
+``` javascript
+$('body').flurry('destroy');
 ```
 
 ## Options
@@ -69,3 +77,7 @@ $( document ).ready( function() {
 `zIndex` (number) sets the `z-index` CSS property for the snowflakes. Default is `9999`.
 
 **Note:** Many of the options available are randomized slightly for each flake to make the overall effect appear more natural.
+
+## Methods
+
+`destroy` Call `$('your-element').flurry('destroy');` to destroy the snow after you've start flurry on an element(s) on the page. With this you can easily build a toggle on/off capability for the snow.
