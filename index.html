@@ -1,40 +1,48 @@
 <html>
-    <head>
-        <style>
-            body{
-                background: darkblue;
-            }
-            main {
-              margin: 0 auto;
-              max-width: 80%;
-            }
-            .flurry-container {
-              min-height: 600px;
-            }
-        </style>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="jquery.flurry.js"></script>
-        <script>
-            $( document ).ready( function() {
-                $('body').flurry({
-                    height: 500,
-                    speed: 3000,
-                    wind: 400,
-                    variance: 100,
-                    large: 75,
-                    small: 25,
-                    density: 100,
-                    transparency: 0.4
-                });
-            });
-        </script>
-    </head>
-    <body>
-        <main>
-          <h1>Flurry Example</h1>
-          <div class="flurry-container">
-            <p>Let it snow!</p>
-          </div>
-        </main>
-    </body>
+  <head>
+    <meta charset="utf-8">
+    <title>Flurry Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body{
+        background: darkblue;
+        color: white;
+        font-family: sans-serif;
+      }
+      main {
+        margin: 0 auto;
+        max-width: 80%;
+      }
+      .flurry-container {
+        min-height: 600px;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="jquery.flurry.js"></script>
+    <script>
+      $( document ).ready( function() {
+
+        $('body').flurry();
+
+        $('.toggle-snow').on('click', function(event) {
+
+          event.preventDefault();
+
+          try {
+            $('body').flurry('destroy');
+          }
+          catch(err) {
+            $('body').flurry();
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <h1>Flurry Example</h1>
+      <p>Let it snow!</p>
+      <p><button class="toggle-snow">Toggle Snow</button></p>
+    </main>
+  </body>
 </html>
