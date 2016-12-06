@@ -8,7 +8,7 @@
  * (see http://jonathannicol.com/blog/2012/05/06/a-jquery-plugin-boilerplate/)
  *
  * @link      https://github.com/joshmcrty/Flurry
- * @version   1.0.1
+ * @version   1.0.2
  * @author    Josh McCarty <josh@joshmccarty.com>
  * @copyright 2016 Josh McCarty
  * @license   https://github.com/joshmcrty/Flurry/blob/master/LICENSE GPLv2
@@ -169,7 +169,7 @@
     var $flake = $('<span></span>');
     $flake.html(character).css({
       "color": options.blur && fontSize < (options.large + options.small) / 2 ? "transparent" : options.color,
-      "text-shadow": options.blur && fontSize < (options.large + options.small) / 2 ? "0 0 1px rgba(255,255,255,1)" : "none",
+      "text-shadow": options.blur && fontSize < (options.large + options.small) / 2 ? "0 0 1px " + options.color : "none",
       "display": "inline-block",
       "line-height": 1,
       "margin": 0,
