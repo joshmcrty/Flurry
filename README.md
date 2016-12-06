@@ -56,6 +56,8 @@ $('body').flurry('destroy');
 
 `large` (number) determines the font size of the largest flakes in pixels. Default is `28`.
 
+`blur` (boolean) determines whether a blur effect is applied to smaller flakes. Default is `true`.
+
 `wind` (number) controls how far to the left each flake will drift in pixels. Default is `40`. Use a negative number to make flakes drift to the right.
 
 `windVariance` (number) controls how much each flake will drift in pixels using the `wind` as a base; lower creates less random drift. Default is `20`.
