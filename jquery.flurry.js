@@ -237,7 +237,7 @@
 
       // Set element position to relative if currently static
       if (options.useRelative === true && $el.css('position') === 'static') {
-        $$el.css({
+        $el.css({
           'position': 'relative'
         });
       }
