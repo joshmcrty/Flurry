@@ -161,7 +161,7 @@
 
     // Create object to store final CSS properties for the flake
     var endCSS = {
-      "transform": "translateX(" + endX + "px) translateY(" + endY + "px) rotate(" + endRotation + "deg)",
+      "transform": "translateX(" + endX + "px) translateY(" + endY + "px) rotateZ(" + endRotation + "deg)",
       "opacity": 0
     };
 
@@ -179,7 +179,7 @@
       "opacity": options.startTransparency,
       "position": "absolute",
       "top": "-" + (options.large * 1.2) + "px",
-      "transform": "translateX(" + startX + "px) translateY(0px)",
+      "transform": "translateX(" + startX + "px) translateY(0px) rotateZ(" + options.startRotation + "deg)",
       "transition": "transform " + (speed / 1000) + "s linear, opacity " + (speed / 1000) + "s " + options.opacityEasing,
       "z-index": options.zIndex,
     }).appendTo($container);
@@ -403,6 +403,7 @@
     windVariance: 20,
     rotation: 90,
     rotationVariance: 180,
+    startRotation: 0,
     startOpacity: 1,
     endOpacity: 0,
     opacityEasing: "cubic-bezier(1,.3,.6,.74)",

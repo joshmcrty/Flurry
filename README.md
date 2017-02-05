@@ -66,6 +66,8 @@ $('body').flurry('destroy');
 
 `rotationVariance` (number) controls how much each flake's `rotation` will be randomized by in degrees; lower creates less random rotation. Default is `180`.
 
+`startRotation` (number) controls what each flake's initial CSS transform rotation will be. Default is `0`.
+
 `startOpacity` (number) controls how much opacity the snowflakes have when they start to fall. Default is `1` which is fully opaque. You may use any valid [CSS opacity value](https://developer.mozilla.org/en-US/docs/Web/CSS/opacity).
 
 `endOpacity` (number) controls how much opacity the snowflakes have when they finish falling and are removed from the DOM. Default is `0` which is fully transparent. You may use any valid [CSS opacity value](https://developer.mozilla.org/en-US/docs/Web/CSS/opacity).
