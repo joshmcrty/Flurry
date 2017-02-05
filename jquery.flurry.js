@@ -157,7 +157,7 @@
     var endY = options.height - fontSize;
 
     // Set the flake's rotation to a random degree based on the rotation and rotationVariance options
-    var endRotation = randomNumberInRange(options.wind - options.windVariance, options.wind + options.windVariance);
+    var endRotation = randomNumberInRange(options.rotation - options.rotationVariance, options.rotation + options.rotationVariance);
 
     // Create object to store final CSS properties for the flake
     var endCSS = {
