@@ -158,6 +158,9 @@
 
     // Set the flake's rotation to a random degree based on the rotation and rotationVariance options
     var endRotation = randomNumberInRange(options.rotation - options.rotationVariance, options.rotation + options.rotationVariance);
+    
+    // Set the flake's color based on color options
+    var color = Array.isArray(options.color) ? options.color[Math.floor(Math.random() * options.color.length)] : options.color;
 
     // Create object to store final CSS properties for the flake
     var endCSS = {
@@ -168,8 +171,8 @@
     // Create the flake, set the CSS for it, and animate it
     var $flake = $('<span></span>');
     $flake.html(character).css({
-      "color": options.blur && fontSize < (options.large + options.small) / 2 ? "transparent" : options.color,
-      "text-shadow": options.blur && fontSize < (options.large + options.small) / 2 ? "0 0 1px " + options.color : "none",
+      "color": options.blur && fontSize < (options.large + options.small) / 2 ? "transparent" : color,
+      "text-shadow": options.blur && fontSize < (options.large + options.small) / 2 ? "0 0 1px " + color : "none",
       "display": "inline-block",
       "line-height": 1,
       "margin": 0,

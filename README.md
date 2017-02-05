@@ -44,7 +44,7 @@ $('body').flurry('destroy');
 
 `character` (string) determines the character or html entity to be replicated as a snowflake. Default is `"❄"`. If you set this to a string of several unicode characters Flurry will randomize which flakes use each character (e.g. `"❄❅❆"`).
 
-`color` (string) determines the color of the snowflake. Default is `"white"`. You may use any valid [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
+`color` (string or array) determines the color of the snowflake. Default is `"white"`. You may use any valid [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value). If you set this to an array of colors Flurry will randomly use one of the colors for each flake (e.g. `["white", "silver"]`).
 
 `height` (number) controls how far down the page the flakes will fall in pixels. Default is `200` or the height of the `container`, whichever is smaller.
 
