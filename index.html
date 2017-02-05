@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       body{
-        background: darkblue;
+        background: #443344;
         color: white;
         font-family: sans-serif;
       }
@@ -13,17 +13,13 @@
         margin: 0 auto;
         max-width: 80%;
       }
-      .flurry-container {
-        min-height: 600px;
-      }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="jquery.flurry.js"></script>
     <script>
       $( document ).ready( function() {
 
-        $('body').flurry();
-
+        // Snow toggle
         $('.toggle-snow').on('click', function(event) {
 
           event.preventDefault();
@@ -32,7 +28,62 @@
             $('body').flurry('destroy');
           }
           catch(err) {
+          }
+          finally {
             $('body').flurry();
+          }
+        });
+        
+        // Custom snow toggle
+        $('.toggle-custom-snow').on('click', function(event) {
+
+          event.preventDefault();
+
+          try {
+            $('body').flurry('destroy');
+          }
+          catch(err) {
+          }
+          finally {
+            $('body').flurry({
+              character: '❄❅❆*⛄☃',
+              height: 240,
+              speed: 1400,
+              wind: 200,
+              windVariance: 220,
+              frequency: 10,
+              large: 40,
+              small: 4
+            });
+          }
+        });
+        
+        // Confetti toggle
+        $('.toggle-confetti').on('click', function(event) {
+
+          event.preventDefault();
+
+          try {
+            $('body').flurry('destroy');
+          }
+          catch(err) {
+          }
+          finally {
+            $('body').flurry({
+              character: "~",
+              color: ["#55476A", "#AE3D63", "#DB3853", "#F45C44", "#F8B646"],
+              speed: 2000,
+              height: 480,
+              frequency: 60,
+              small: 12,
+              large: 50,
+              rotation: 90,
+              rotationVariance: 20,
+              startRotation: 90,
+              wind: 10,
+              windVariance: 100,
+              opacityEasing: "cubic-bezier(1,0,.96,.9)"
+            });
           }
         });
       });
@@ -41,8 +92,35 @@
   <body>
     <main>
       <h1>Flurry Example</h1>
-      <p>Let it snow!</p>
-      <p><button class="toggle-snow">Toggle Snow</button></p>
+      <p>Click the buttons below to see examples of Flurry in action.</p>
+      <p><button class="toggle-snow">Toggle Snow</button> This uses the default options.</p>
+      <p><button class="toggle-custom-snow">Toggle Custom Snow</button> This uses custom options for a more intense snow effect (with snowmen!):</p>
+      <pre>$('body').flurry({
+  character: '❄❅❆*⛄☃',
+  height: 240,
+  speed: 1400,
+  wind: 200,
+  windVariance: 220,
+  frequency: 10,
+  large: 40,
+  small: 4
+});</pre>
+      <p><button class="toggle-confetti">Toggle Confetti</button> This uses custom options to create a "confetti" effect:</p>
+      <pre>$('body').flurry({
+  character: "~",
+  color: ["#55476A", "#AE3D63", "#DB3853", "#F45C44", "#F8B646"],
+  speed: 2000,
+  height: 480,
+  frequency: 60,
+  small: 12,
+  large: 50,
+  rotation: 90,
+  rotationVariance: 20,
+  startRotation: 90,
+  wind: 10,
+  windVariance: 100,
+  opacityEasing: "cubic-bezier(1,0,.96,.9)"
+});</pre>
     </main>
   </body>
 </html>

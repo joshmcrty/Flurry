@@ -3,12 +3,12 @@
  *
  * Flurry is an easy-to-use animated snow plugin for jQuery. It takes advantage
  * of CSS transforms, CSS transitions and requestAnimationFrame to provide
- * smooth animation for modern browsers.. Props to Jonathan Nicol @f6design
+ * smooth animation for modern browsers. Props to Jonathan Nicol @f6design
  * for boilerplate code
  * (see http://jonathannicol.com/blog/2012/05/06/a-jquery-plugin-boilerplate/)
  *
  * @link      https://github.com/joshmcrty/Flurry
- * @version   1.0.2
+ * @version   1.1.0
  * @author    Josh McCarty <josh@joshmccarty.com>
  * @copyright 2016 Josh McCarty
  * @license   https://github.com/joshmcrty/Flurry/blob/master/LICENSE GPLv2
