@@ -4,40 +4,42 @@ Flurry is an easy-to-use animated snow plugin for jQuery. It takes advantage of 
 
 Tested in Chrome 54, Firefox 49, IE 11, and Edge 38.
 
+View demo at [https://joshmcrty.github.io/Flurry/](https://joshmcrty.github.io/Flurry/).
+
 ## Usage
 
 To use the default settings:
 
-``` javascript
-$( document ).ready( function() {
-    $( 'body' ).flurry();
+```javascript
+$(document).ready(function () {
+  $("body").flurry();
 });
 ```
 
 To specify your own settings:
 
-``` javascript
-$( document ).ready( function() {
-    $( 'body' ).flurry({
-        character: "❄",
-        color: "white",
-        height: 400,
-        frequency: 80,
-        speed: 4000,
-        small: 8,
-        large: 48,
-        wind: 60,
-        windVariance: 20,
-        rotation: 0,
-        rotationVariance: 90
-    });
+```javascript
+$(document).ready(function () {
+  $("body").flurry({
+    character: "❄",
+    color: "white",
+    height: 400,
+    frequency: 80,
+    speed: 4000,
+    small: 8,
+    large: 48,
+    wind: 60,
+    windVariance: 20,
+    rotation: 0,
+    rotationVariance: 90,
+  });
 });
 ```
 
 To destroy an instance after it's been created:
 
-``` javascript
-$('body').flurry('destroy');
+```javascript
+$("body").flurry("destroy");
 ```
 
 ## Options
