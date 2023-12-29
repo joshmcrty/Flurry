@@ -82,8 +82,12 @@ $("body").flurry("destroy");
 
 `zIndex` (number) sets the `z-index` CSS property for the snowflakes. Default is `9999`.
 
+`onInit` (function) allows you to execute a function when a Flurry instance is initialized. `this` within the `onInit()` function is set to the flurry element (e.g. `<body>` by default).
+
+`onDestroy` (function) allows you to execute a function when a Flurry instance is destroyed. `this` within the `onDestroy()` function is set to the flurry element (e.g. `<body>` by default).
+
 **Note:** Many of the options available are randomized slightly for each flake to make the overall effect appear more natural.
 
 ## Methods
 
-`destroy` Call `$('your-element').flurry('destroy');` to destroy the snow after you've start flurry on an element(s) on the page. With this you can easily build a toggle on/off capability for the snow.
+`destroy` Call `$('your-element').flurry('destroy');` to destroy the snow after you've started flurry on an element(s) on the page. With this you can easily build a toggle on/off capability for the snow.
