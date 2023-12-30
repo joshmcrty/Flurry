@@ -8,13 +8,12 @@
  * (see http://jonathannicol.com/blog/2012/05/06/a-jquery-plugin-boilerplate/)
  *
  * @link      https://github.com/joshmcrty/Flurry
- * @version   1.1.0
+ * @version   1.2.0
  * @author    Josh McCarty <josh@joshmccarty.com>
  * @copyright 2016 Josh McCarty
  * @license   https://github.com/joshmcrty/Flurry/blob/master/LICENSE GPLv2
  */
-;(function($, undefined) {
-
+(function ($, undefined) {
   /**
    * requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
    * http://paulirish.com/2011/requestanimationframe-for-smart-animating/
@@ -22,19 +21,22 @@
    *
    * @link https://gist.github.com/lenville/9e13e63af075c145d662
    */
-  (function() {
+  (function () {
     var lastTime = 0;
-    var vendors = ['ms', 'moz', 'webkit', 'o'];
-    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-      window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-      window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+    var vendors = ["ms", "moz", "webkit", "o"];
+    for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+      window.requestAnimationFrame =
+        window[vendors[x] + "RequestAnimationFrame"];
+      window.cancelAnimationFrame =
+        window[vendors[x] + "CancelAnimationFrame"] ||
+        window[vendors[x] + "CancelRequestAnimationFrame"];
     }
 
     if (!window.requestAnimationFrame) {
-      window.requestAnimationFrame = function(callback, element) {
+      window.requestAnimationFrame = function (callback, element) {
         var currTime = new Date().getTime();
         var timeToCall = Math.max(0, 16 - Math.abs(currTime - lastTime));
-        var id = window.setTimeout(function() {
+        var id = window.setTimeout(function () {
           callback(currTime + timeToCall);
         }, timeToCall);
         lastTime = currTime + timeToCall;
@@ -43,14 +45,14 @@
     }
 
     if (!window.cancelAnimationFrame) {
-      window.cancelAnimationFrame = function(id) {
+      window.cancelAnimationFrame = function (id) {
         clearTimeout(id);
       };
     }
-  }());
+  })();
 
   // Change this to your plugin name.
-  var pluginName = 'flurry';
+  var pluginName = "flurry";
 
   /**
    * Behaves the same as setInterval except uses requestAnimationFrame() where possible for better performance
@@ -64,16 +66,15 @@
    * @param {int} delay The delay in milliseconds
    */
   function requestInterval(fn, delay) {
-
     /* jshint -W010 */
     var start = new Date().getTime(),
-        handle = new Object();
+      handle = new Object();
 
     function loop() {
       var current = new Date().getTime(),
         delta = current - start;
 
-      if(delta >= delay) {
+      if (delta >= delay) {
         fn.call();
         start = new Date().getTime();
       }
@@ -96,15 +97,22 @@
    * @param {int|object} fn The callback function
    */
   function clearRequestInterval(handle) {
-
     /* jshint -W030 */
-    window.cancelAnimationFrame ? window.cancelAnimationFrame(handle.value) :
-    window.webkitCancelAnimationFrame ? window.webkitCancelAnimationFrame(handle.value) :
-    window.webkitCancelRequestAnimationFrame ? window.webkitCancelRequestAnimationFrame(handle.value) : /* Support for legacy API */
-    window.mozCancelRequestAnimationFrame ? window.mozCancelRequestAnimationFrame(handle.value) :
-    window.oCancelRequestAnimationFrame  ? window.oCancelRequestAnimationFrame(handle.value) :
-    window.msCancelRequestAnimationFrame ? window.msCancelRequestAnimationFrame(handle.value) :
-    clearInterval(handle);
+    window.cancelAnimationFrame
+      ? window.cancelAnimationFrame(handle.value)
+      : window.webkitCancelAnimationFrame
+      ? window.webkitCancelAnimationFrame(handle.value)
+      : window.webkitCancelRequestAnimationFrame
+      ? window.webkitCancelRequestAnimationFrame(
+          handle.value
+        ) /* Support for legacy API */
+      : window.mozCancelRequestAnimationFrame
+      ? window.mozCancelRequestAnimationFrame(handle.value)
+      : window.oCancelRequestAnimationFrame
+      ? window.oCancelRequestAnimationFrame(handle.value)
+      : window.msCancelRequestAnimationFrame
+      ? window.msCancelRequestAnimationFrame(handle.value)
+      : clearInterval(handle);
   }
 
   /**
@@ -114,8 +122,13 @@
    */
   function supportsTransitions() {
     var thisBody = document.body || document.documentElement,
-    thisStyle = thisBody.style,
-    support = thisStyle.transition !== undefined || thisStyle.WebkitTransition !== undefined || thisStyle.MozTransition !== undefined || thisStyle.MsTransition !== undefined || thisStyle.OTransition !== undefined;
+      thisStyle = thisBody.style,
+      support =
+        thisStyle.transition !== undefined ||
+        thisStyle.WebkitTransition !== undefined ||
+        thisStyle.MozTransition !== undefined ||
+        thisStyle.MsTransition !== undefined ||
+        thisStyle.OTransition !== undefined;
     return support;
   }
 
@@ -137,71 +150,135 @@
    * @param {object} $container The jQuery element to append each snowflake to.
    */
   function createFlake(options, $container, containerWidth) {
-
     // Set the character. If multiple characters are provided, randomly select one.
-    var character = options.character.length === 1 ? options.character : options.character.charAt(Math.round(randomNumberInRange(0, options.character.length - 1)));
+    var character =
+      // If only one character, use it directly
+      options.character.length === 1
+        ? Array.isArray(options.character)
+          ? options.character[0]
+          : options.character
+        : // If an array, select a random character from the array
+        Array.isArray(options.character)
+        ? options.character[
+            randomNumberInRange(0, options.character.length - 1)
+          ]
+        : // If more than one character as a string, select a random character
+          Array.from(options.character)[
+            randomNumberInRange(0, options.character.length - 1)
+          ];
+
+    if (typeof options.character === "string" && console && console.warn) {
+      console.warn(
+        "You are using a string for the Flurry character options. Please use an array of string(s) instead."
+      );
+    }
 
     // Set the flake's starting position to a random number between the container width, including additional space for the wind setting
-    var startX = randomNumberInRange(-Math.abs(options.wind), containerWidth + Math.abs(options.wind));
+    var startX = randomNumberInRange(
+      -Math.abs(options.wind),
+      containerWidth + Math.abs(options.wind)
+    );
 
     // Set the flake's ending X translation to a random number based on the wind and windVariance options
-    var endX = startX + randomNumberInRange(options.wind - options.windVariance, options.wind + options.windVariance);
+    var endX =
+      startX +
+      randomNumberInRange(
+        options.wind - options.windVariance,
+        options.wind + options.windVariance
+      );
 
     // Set the flake's font size to a random number between the small and large options
     var fontSize = randomNumberInRange(options.small, options.large);
 
     // Set the flake's speed to a random number based on the speed setting and the randomized fontSize
-    var speed = options.speed / ((randomNumberInRange(fontSize * 1.2, fontSize * 0.8) - options.small) / (options.large - options.small) + 0.5);
+    var speed =
+      options.speed /
+      ((randomNumberInRange(fontSize * 1.2, fontSize * 0.8) - options.small) /
+        (options.large - options.small) +
+        0.5);
 
     // Set the flake's ending Y translation based on the height setting and the randomized fontSize
     var endY = options.height - fontSize;
 
     // Set the flake's rotation to a random degree based on the rotation and rotationVariance options
-    var endRotation = randomNumberInRange(options.rotation - options.rotationVariance, options.rotation + options.rotationVariance);
-    
+    var endRotation = randomNumberInRange(
+      options.rotation - options.rotationVariance,
+      options.rotation + options.rotationVariance
+    );
+
     // Set the flake's color based on color options
-    var color = Array.isArray(options.color) ? options.color[Math.floor(Math.random() * options.color.length)] : options.color;
+    var color = Array.isArray(options.color)
+      ? options.color[Math.floor(Math.random() * options.color.length)]
+      : options.color;
 
     // Create object to store final CSS properties for the flake
     var endCSS = {
-      "transform": "translateX(" + endX + "px) translateY(" + endY + "px) rotateZ(" + endRotation + "deg)",
-      "opacity": 0
+      transform:
+        "translateX(" +
+        endX +
+        "px) translateY(" +
+        endY +
+        "px) rotateZ(" +
+        endRotation +
+        "deg)",
+      opacity: 0,
     };
 
     // Create the flake, set the CSS for it, and animate it
-    var $flake = $('<span></span>');
+    var $flake = $("<span></span>");
     $flake.html(character).css({
-      "color": options.blur && fontSize < (options.large + options.small) / 2 ? "transparent" : color,
-      "text-shadow": options.blur && fontSize < (options.large + options.small) / 2 ? "0 0 1px " + color : "none",
-      "display": "inline-block",
+      color:
+        options.blur && fontSize < (options.large + options.small) / 2
+          ? "transparent"
+          : color,
+      "text-shadow":
+        options.blur && fontSize < (options.large + options.small) / 2
+          ? "0 0 1px " + color
+          : "none",
+      display: "inline-block",
       "line-height": 1,
-      "margin": 0,
-      "padding": "2px",
+      margin: 0,
+      padding: "2px",
       "pointer-events": "none",
       "font-size": fontSize + "px",
-      "opacity": options.startTransparency,
-      "position": "absolute",
-      "top": "-" + (options.large * 1.2) + "px",
-      "transform": "translateX(" + startX + "px) translateY(0px) rotateZ(" + options.startRotation + "deg)",
-      "transition": "transform " + (speed / 1000) + "s linear, opacity " + (speed / 1000) + "s " + options.opacityEasing,
+      opacity: options.startTransparency,
+      position: "absolute",
+      top: "-" + options.large * 1.2 + "px",
+      transform:
+        "translateX(" +
+        startX +
+        "px) translateY(0px) rotateZ(" +
+        options.startRotation +
+        "deg)",
+      transition:
+        "transform " +
+        speed / 1000 +
+        "s linear, opacity " +
+        speed / 1000 +
+        "s " +
+        options.opacityEasing,
       "z-index": options.zIndex,
-    }).appendTo($container);
+    });
+
+    if (options.onFlake !== undefined) {
+      options.onFlake.call($flake[0]);
+    }
+
+    $flake.appendTo($container);
 
     if (supportsTransitions) {
-
       // Remove the flake element when it finishes transitioning
-      $flake.on('transitionend.flurry', function(event) {
+      $flake.on("transitionend.flurry", function (event) {
         $(event.target).remove();
       });
 
       // Set the endCSS to trigger the transition
-      window.requestAnimationFrame(function(){
+      window.requestAnimationFrame(function () {
         $flake.css(endCSS);
       });
     } else {
-
       // Use jQuery .animate()
-      $flake.animate(endCSS, speed, 'linear', function() {
+      $flake.animate(endCSS, speed, "linear", function () {
         $(this).remove();
       });
     }
@@ -212,20 +289,23 @@
    * Implements the Revealing Module Pattern.
    */
   function Plugin(element, options) {
-
     // References to this plugin instance, DOM and jQuery versions of element.
     var self = this;
     var el = element;
     var $el = $(element);
 
     // Extend default options with those supplied by user.
-    options = $.extend({
-      height: $el.height() > 200 ? 200 : $el.height(), // default to 200px or the height of the element, whichever is smaller
-      useRelative: $el.is('body') ? false : true, // default to false for the body element and true for all other elements
-    }, $.fn[pluginName].defaults, options);
+    options = $.extend(
+      {
+        height: $el.height() > 200 ? 200 : $el.height(), // default to 200px or the height of the element, whichever is smaller
+        useRelative: $el.is("body") ? false : true, // default to false for the body element and true for all other elements
+      },
+      $.fn[pluginName].defaults,
+      options
+    );
 
     // Ensure options that should be numbers are numbers
-    $.each(options, function(key, val) {
+    $.each(options, function (key, val) {
       if (parseInt(val)) {
         options[key] = parseInt(val);
       }
@@ -235,42 +315,44 @@
      * Initialize plugin.
      */
     function init() {
-
       // Add any initialization logic here...
 
       // Set element position to relative if currently static
-      if (options.useRelative === true && $el.css('position') === 'static') {
+      if (options.useRelative === true && $el.css("position") === "static") {
         $el.css({
-          'position': 'relative'
+          position: "relative",
         });
       }
 
       // Create container element to hold snowflakes
-      var $container = $(document.createElement('div')).addClass('flurry-container').css({
-        'margin': 0,
-        'padding': 0,
-        'position': 'absolute',
-        'top': 0,
-        'right': 0,
-        'left': 0,
-        'height': options.height,
-        'overflow': options.overflow,
-        'pointer-events': 'none'
-      }).prependTo($el);
+      var $container = $(document.createElement("div"))
+        .addClass("flurry-container")
+        .css({
+          margin: 0,
+          padding: 0,
+          position: "absolute",
+          top: 0,
+          right: 0,
+          left: 0,
+          height: options.height,
+          overflow: options.overflow,
+          "pointer-events": "none",
+        })
+        .prependTo($el);
 
       // On window resize, recalculate the width used to generate flakes within
       var containerWidth = $container.width();
-      $(window).resize(function() {
+      $(window).resize(function () {
         containerWidth = $container.width();
       });
 
       // Generate flakes at the interval set by the frequency setting
-      self.flakeInterval = requestInterval(function() {
+      self.flakeInterval = requestInterval(function () {
         createFlake(options, $container, containerWidth);
       }, options.frequency);
 
       // Call onInit hook
-      hook('onInit');
+      hook("onInit");
     }
 
     /**
@@ -278,7 +360,7 @@
      * Get usage: $('#el').demoplugin('option', 'key');
      * Set usage: $('#el').demoplugin('option', 'key', value);
      */
-    function option (key, val) {
+    function option(key, val) {
       if (val) {
         options[key] = parseInt(val) || val;
       } else {
@@ -291,9 +373,8 @@
      * Usage: $('#el').demoplugin('destroy');
      */
     function destroy() {
-
       // Iterate over each matching element.
-      $el.each(function() {
+      $el.each(function () {
         var el = this;
         var $el = $(this);
 
@@ -303,13 +384,13 @@
         clearRequestInterval(self.flakeInterval);
 
         // Remove container
-        $el.find('.flurry-container').remove();
+        $el.find(".flurry-container").remove();
 
         // Call onDestroy hook
-        hook('onDestroy');
+        hook("onDestroy");
 
         // Remove Plugin instance from the element.
-        $el.removeData('plugin_' + pluginName);
+        $el.removeData("plugin_" + pluginName);
       });
     }
 
@@ -322,7 +403,6 @@
      */
     function hook(hookName) {
       if (options[hookName] !== undefined) {
-
         // Call the user defined function.
         // Scope is set to the jQuery element we are operating on.
         options[hookName].call(el);
@@ -335,50 +415,51 @@
     // Expose methods of Plugin we wish to be public.
     return {
       option: option,
-      destroy: destroy
+      destroy: destroy,
     };
   }
 
   /**
    * Plugin definition.
    */
-  $.fn[pluginName] = function(options) {
-
+  $.fn[pluginName] = function (options) {
     // If the first parameter is a string, treat this as a call to a public method.
-    if (typeof arguments[0] === 'string') {
+    if (typeof arguments[0] === "string") {
       var methodName = arguments[0];
       var args = Array.prototype.slice.call(arguments, 1);
       var returnVal;
-      this.each(function() {
-
+      this.each(function () {
         // Check that the element has a plugin instance, and that the requested public method exists.
-        if ($.data(this, 'plugin_' + pluginName) && typeof $.data(this, 'plugin_' + pluginName)[methodName] === 'function') {
-
+        if (
+          $.data(this, "plugin_" + pluginName) &&
+          typeof $.data(this, "plugin_" + pluginName)[methodName] === "function"
+        ) {
           // Call the method of the Plugin instance, and Pass it the supplied arguments.
-          returnVal = $.data(this, 'plugin_' + pluginName)[methodName].apply(this, args);
+          returnVal = $.data(this, "plugin_" + pluginName)[methodName].apply(
+            this,
+            args
+          );
         } else {
-          throw new Error('Method ' +  methodName + ' does not exist on jQuery.' + pluginName);
+          throw new Error(
+            "Method " + methodName + " does not exist on jQuery." + pluginName
+          );
         }
       });
-      if (returnVal !== undefined){
-
+      if (returnVal !== undefined) {
         // If the method returned a value, return the value.
         return returnVal;
       } else {
-
         // Otherwise, returning 'this' preserves chainability.
         return this;
       }
 
-    // If the first parameter is an object (options), or was omitted, instantiate a new instance of the plugin.
+      // If the first parameter is an object (options), or was omitted, instantiate a new instance of the plugin.
     } else if (typeof options === "object" || !options) {
-      return this.each(function() {
-
+      return this.each(function () {
         // Only allow the plugin to be instantiated once.
-        if (!$.data(this, 'plugin_' + pluginName)) {
-
+        if (!$.data(this, "plugin_" + pluginName)) {
           // Pass options to Plugin constructor, and store Plugin instance in the elements jQuery data object.
-          $.data(this, 'plugin_' + pluginName, new Plugin(this, options));
+          $.data(this, "plugin_" + pluginName, new Plugin(this, options));
         }
       });
     }
@@ -386,17 +467,17 @@
 
   // Default plugin options.
   // Options can be overwritten when initializing plugin, by
-  // passing an object literal, or after initialization:
-  // $('#el').demoplugin('option', 'key', value);
+  // passing an object literal.
   // The `height` and `useRelative` defaults are set in
   // the `Plugin()` function as they rely on the selected
-  // element(s) to determine a default value
+  // element(s) to determine a default value.
   $.fn[pluginName].defaults = {
-    onInit: function() {},
-    onDestroy: function() {},
+    onInit: undefined,
+    onDestroy: undefined,
+    onFlake: undefined,
     /* height: 200, */
     /* useRelative: false, */
-    character: "❄",
+    character: ["❄"],
     color: "white",
     frequency: 100,
     speed: 3000,
@@ -410,9 +491,8 @@
     startOpacity: 1,
     endOpacity: 0,
     opacityEasing: "cubic-bezier(1,.3,.6,.74)",
-    blur: true,
+    blur: false,
     overflow: "hidden",
-    zIndex: 9999
+    zIndex: 9999,
   };
-
 })(jQuery);

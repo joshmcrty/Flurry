@@ -44,7 +44,7 @@ $("body").flurry("destroy");
 
 ## Options
 
-`character` (string) determines the character or html entity to be replicated as a snowflake. Default is `"❄"`. If you set this to a string of several unicode characters Flurry will randomize which flakes use each character (e.g. `"❄❅❆"`).
+`character` (array) determines the character or html entity to be replicated as a snowflake. Default is `["❄"]`. If you set this to an array of several unicode character or emoji strings Flurry will randomize which flakes use each character (e.g. `["❄","❅","❆"]`). Even if using a single character, it is best to provide an array instead of a string due to the way JavaScript handles certain emoji characters.
 
 `color` (string or array) determines the color of the snowflake. Default is `"white"`. You may use any valid [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value). If you set this to an array of colors Flurry will randomly use one of the colors for each flake (e.g. `["white", "silver"]`).
 
@@ -81,6 +81,8 @@ $("body").flurry("destroy");
 `useRelative` (boolean) determines whether `position: relative` is applied to the selected element so flakes are generated within it (useful for generating flakes for only a specific part of the page). Default is `true` for all elements except the `body` element which is `false`.
 
 `zIndex` (number) sets the `z-index` CSS property for the snowflakes. Default is `9999`.
+
+`onFlake` (function) allows you to execute a function when each snowflake element is created. `this` within the `onFlake()` function is set to the snowflake element; see demo page for an example that uses a FontAwesome shape for each flake.
 
 `onInit` (function) allows you to execute a function when a Flurry instance is initialized. `this` within the `onInit()` function is set to the flurry element (e.g. `<body>` by default).
 
