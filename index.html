@@ -143,7 +143,7 @@ $('body').flurry({
       </p>
       <pre>
 $('body').flurry({
-  character: "~",
+  character: ["~"],
   color: ["#55476A", "#AE3D63", "#DB3853", "#F45C44", "#F8B646"],
   speed: 2000,
   height: 480,
@@ -170,7 +170,7 @@ $('head').append('&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/font-aw
 
 // Flurry
 $('body').flurry({
-  character: "",
+  character: [""],
   height: 640,
   onFlake: function () {
     $(this).html("&lt;i class='fa-regular fa-sun'&gt;&lt;/i&gt;");
